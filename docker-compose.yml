@@ -1,0 +1,12 @@
+version: '2.3'
+
+services:
+
+  osgjs:
+    image: nginx
+    container_name: osgjs
+    working_dir: /usr/share/nginx/html
+    ports:
+      - 80:80
+    volumes:
+      - ./src:/usr/share/nginx/html:ro
