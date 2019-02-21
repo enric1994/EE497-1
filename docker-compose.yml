@@ -10,3 +10,6 @@ services:
       - 80:80
     volumes:
       - ./src:/usr/share/nginx/html:ro
+
+      #Open custom script:
+      #http://localhost/main.html?filename=GroupNodes/Switch.js
