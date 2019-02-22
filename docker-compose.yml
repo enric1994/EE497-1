@@ -11,5 +11,8 @@ services:
     volumes:
       - ./src:/usr/share/nginx/html:ro
 
+      #Open project:
+      #http://localhost/main.html
+
       #Open custom script:
-      #http://localhost/main.html?filename=GroupNodes/Switch.js
+      #http://localhost/main.html?filename=Project/MatrixTransform.js
