@@ -42,34 +42,38 @@ ClickCallback.prototype = {
     var root = new osg.Node();
 
     //Transform that modify all objects rotation
-    this.worldTransform = new osg.MatrixTransform();
-    root.addChild(worldTransform);
+    var globalRotation = new osg.MatrixTransform();
+    
+    //Offset all the objects position
+    var globalTranslationMatrix  = new osg.Matrix.create();
+    globalTranslationMatrix = osg.Matrix.makeTranslate( 0,0,-15, globalTranslationMatrix);
+    var globalTranslation = new osg.MatrixTransform();
+    globalTranslation.setMatrix(globalTranslationMatrix);
+
+    //Rotate and then translate
+    root.addChild(globalRotation);
+    globalRotation.addChild(globalTranslation);
+
+    var objectsRotation = new osg.MatrixTransform();
+    globalTranslation.addChild(objectsRotation);
 
     //Create world
-    world = new World(worldTransform);
+    world = new World(objectsRotation, 30);
     world.create();
-    // root.addChild(world)
 
     //Create trees
-    tree1 = new Tree(worldTransform,5,0,0, 1, 0, 0, 0);
-    tree2 = new Tree(worldTransform,-5,0,0, 1, 0, 0, 0);
+    tree1 = new Tree(objectsRotation,5,0,5, 1, 0, 0, 0);
+    tree2 = new Tree(objectsRotation,-5,0,5, 1, 0, 0, 0);
     tree1.create();
     tree2.create();
 
-    //Create spin button
-
-    // var button = osg.createTexturedBox(15, 0, 0, 4,4,4);
-    // var buttonMaterial = new osg.Material();
-    // buttonMaterial.setDiffuse([0.1, 0.2, 0.1, 0.5]);
-    // button.getOrCreateStateSet().setAttributeAndMode(buttonMaterial);
-    // root.addChild(button);
-    button = new Button(root);
-    button.create();
-
     // Callback to rotate the world
     var rotateCallback = new WorldRotateCallback();
-    worldTransform.addUpdateCallback(rotateCallback);
+    objectsRotation.addUpdateCallback(rotateCallback);
 
+    //Create spin button
+    button = new Button(root);
+    button.create();
 
 
     return root;
@@ -186,10 +190,10 @@ Tree.prototype.create = function() {
 
 
 //# Cannot rotate with an object
-function World(localTransform) {
+function World(localTransform, worldSize) {
   this.localTransform = localTransform;
-  this.worldSize = 20;
-  this.offset = -10;
+  this.worldSize = worldSize;
+  this.offset = 0;
 
 }
 

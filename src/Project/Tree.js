@@ -73,7 +73,5 @@ function Tree(root, x, y, z) {
     trees_count = 5;
     tree = new Tree(root, 0, 0, 0);
             root = tree.create();
-        }
-    }
     return root;
   }
