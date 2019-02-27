@@ -58,21 +58,19 @@ ClickCallback.prototype = {
 
     //Create spin button
 
-    var button = osg.createTexturedBox(15, 0, 0, 4,4,4);
-    var buttonMaterial = new osg.Material();
-    buttonMaterial.setDiffuse([0.1, 0.2, 0.1, 0.5]);
-    button.getOrCreateStateSet().setAttributeAndMode(buttonMaterial);
-    root.addChild(button);
-    // button = new Button(root);
-    // button.create();
+    // var button = osg.createTexturedBox(15, 0, 0, 4,4,4);
+    // var buttonMaterial = new osg.Material();
+    // buttonMaterial.setDiffuse([0.1, 0.2, 0.1, 0.5]);
+    // button.getOrCreateStateSet().setAttributeAndMode(buttonMaterial);
+    // root.addChild(button);
+    button = new Button(root);
+    button.create();
 
     // Callback to rotate the world
     var rotateCallback = new WorldRotateCallback();
     worldTransform.addUpdateCallback(rotateCallback);
 
-    // Callback to detect click and modify state
-    var clickCallback = new ClickCallback();
-    button.addUpdateCallback(clickCallback);
+
 
     return root;
     }
@@ -230,8 +228,8 @@ Button.prototype.create = function() {
 
     var button = osg.createTexturedBox(18, 0, 0, 4,4,4);
 
-    // var clickCallback = new ClickCallback();
-    // button.addUpdateCallback(clickCallback);
+    var clickCallback = new ClickCallback();
+    button.addUpdateCallback(clickCallback);
 
 
     var buttonMaterial = new osg.Material();
