@@ -1,62 +1,32 @@
-// Rotating world
-function init() {
-    enablePicking();
-}
 
-var SimpleUpdateCallback = function() {};
-
-SimpleUpdateCallback.prototype = {
-    // rotation angle
-    angle: 0,
-    state: 0,
-
-    update: function(node, nodeVisitor) {
-        // var currentTime = nodeVisitor.getFrameStamp().getSimulationTime();
-        // var dt = currentTime - node._lastUpdate;
-        // if (dt < 0) {
-        //     return true;
-        // }
-        
-        // node._lastUpdate = currentTime;
-
-        // rotation
-        var matrix = node.getMatrix();
-        osg.Matrix.makeRotate(this.angle, 0.0, 1.0, 0.0, matrix);
-
-        //osg.Matrix.setTrans(matrix, 0, 0, 0);
-
-        if (this.angle < (1 +this.state)*Math.PI/2){
-            this.angle += 0.01;
-        }
-        
-        node.onpick = function(){
-            this.state += 1;
-            alert('spin!');
-        }
-
-        // return true;
-    }
-};
-
-function createScene() {
-    var root = new osg.Node();
-
-    var matrixTransform = new osg.MatrixTransform();
-
-    var size = 7;
-    var cube = osg.createTexturedBoxGeometry(0,0,0, size,size,size);
-    matrixTransform.addChild(cube);
-
-
-    // Add material
-    var material = new osg.Material();
-    material.setDiffuse([1.0, 1.0, 0.2, 1.0]);
-    cube.getOrCreateStateSet().setAttributeAndModes(material);
-
-    var updateCallback = new SimpleUpdateCallback();
-    matrixTransform.addUpdateCallback(updateCallback);
-
-    root.addChild(matrixTransform);
-
-    return root;
-}
+function World(localTransform, worldSize) {
+    this.localTransform = localTransform;
+    this.worldSize = worldSize;
+    this.offset = 0;
+  
+  }
+  
+  World.prototype.create = function() {
+  
+  var world = osg.createTexturedBox(0, 0, 0, this.worldSize, this.worldSize, this.worldSize);
+  var worldMaterial = new osg.Material();
+  worldMaterial.setDiffuse([0.2, 0.2, 0.2, 1.0]);
+  world.getOrCreateStateSet().setAttributeAndMode(worldMaterial);
+  
+  var worldMatrixTranslate  = new osg.Matrix.create();
+  worldMatrixTranslate  = osg.Matrix.makeTranslate(0,0,this.offset, worldMatrixTranslate);
+  var worldTranslateTransform = new osg.MatrixTransform();
+  worldTranslateTransform.setMatrix(worldMatrixTranslate );
+  
+  var worldMatrixRotate  = new osg.Matrix.create();
+  worldMatrixRotate = osg.Matrix.makeRotate( 0,0,0,0, worldMatrixRotate);
+  var worldRotateTransform = new osg.MatrixTransform();
+  worldRotateTransform.setMatrix(worldMatrixRotate );
+  
+  
+  this.localTransform.addChild(worldRotateTransform);
+  worldRotateTransform.addChild(worldTranslateTransform);
+  worldTranslateTransform.addChild(world);
+  
+  
+  }

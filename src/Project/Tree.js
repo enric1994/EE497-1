@@ -1,77 +1,108 @@
 
-function Tree(root, x, y, z) {
-    this.root = root;
-    this.x = x;
-    this.y = y;
-    this.z = z;
-  }
-  
-  Tree.prototype.create = function() {
-        // Trunk
-        var trunkSize = 5;
-        var trunk = osg.createTexturedBox(0, 0, 0, trunkSize, trunkSize, trunkSize);
-        var trunkMaterial = new osg.Material();
-        trunkMaterial.setDiffuse([0.5, 0.3, 0.0, 1.0]);
-        trunk.getOrCreateStateSet().setAttributeAndMode(trunkMaterial);
-    
-        var trunkMatrix1  = new osg.Matrix.create();
-        trunkMatrix1  = osg.Matrix.makeTranslate(this.x + 0,this.y + 0,this.z + 0, trunkMatrix1 );
-        var trunkMatrix1Transform = new osg.MatrixTransform();
-        trunkMatrix1Transform.setMatrix(trunkMatrix1 );
-        this.root.addChild(trunkMatrix1Transform);
-        trunkMatrix1Transform.addChild(trunk);
-    
-        var trunkMatrix2 = new osg.Matrix.create();
-        trunkMatrix2 = osg.Matrix.makeTranslate(this.x + 0,this.y + 0,this.z + 5, trunkMatrix2);
-        var trunkMatrix1Transform = new osg.MatrixTransform();
-        trunkMatrix1Transform.setMatrix(trunkMatrix2);
-        this.root.addChild(trunkMatrix1Transform);
-        trunkMatrix1Transform.addChild(trunk);
-    
-        var trunkMatrix3 = new osg.Matrix.create();
-        trunkMatrix3 = osg.Matrix.makeTranslate(this.x + 0,this.y + 0,this.z + 10, trunkMatrix3);
-        var trunkMatrix1Transform = new osg.MatrixTransform();
-        trunkMatrix1Transform.setMatrix(trunkMatrix3);
-        this.root.addChild(trunkMatrix1Transform);
-        trunkMatrix1Transform.addChild(trunk);
-    
-    
-        // Leafs
-        var leafSize = 8;
-        var leaf = osg.createTexturedBox(0, 0, 0, leafSize, leafSize, leafSize);
-        var leafMaterial = new osg.Material();
-        leafMaterial.setDiffuse([0.0, 0.6, 0.2, 1.0]);
-        leaf.getOrCreateStateSet().setAttributeAndMode(leafMaterial);
-    
-        var leafMatrix1  = new osg.Matrix.create();
-        leafMatrix1  = osg.Matrix.makeTranslate(this.x + 0,this.y + 3,this.z + 16, leafMatrix1 );
-        var leafMatrix1Transform = new osg.MatrixTransform();
-        leafMatrix1Transform.setMatrix(leafMatrix1 );
-        this.root.addChild(leafMatrix1Transform);
-        leafMatrix1Transform.addChild(leaf);
-    
-        var leafMatrix2 = new osg.Matrix.create();
-        leafMatrix2 = osg.Matrix.makeTranslate(this.x + 3,this.y + -3,this.z + 16, leafMatrix2);
-        var leafMatrix1Transform = new osg.MatrixTransform();
-        leafMatrix1Transform.setMatrix(leafMatrix2);
-        this.root.addChild(leafMatrix1Transform);
-        leafMatrix1Transform.addChild(leaf);
-    
-        var leafMatrix3 = new osg.Matrix.create();
-        leafMatrix3 = osg.Matrix.makeTranslate(this.x + -4,this.y + 1,this.z + 16, leafMatrix3);
-        var leafMatrix1Transform = new osg.MatrixTransform();
-        leafMatrix1Transform.setMatrix(leafMatrix3);
-        this.root.addChild(leafMatrix1Transform);
-        leafMatrix1Transform.addChild(leaf);
+     
+function Tree(localTransform, x, y, z, rx, ry, rz, angle) {
+  this.localTransform = localTransform;
+  this.x = x;
+  this.y = y;
+  this.z = z;
 
-        return this.root;
-  }
-  
-  function createScene() {
+  this.rx = rx;
+  this.ry = ry;
+  this.rz = rz;
 
-    var root = new osg.Node();
-    trees_count = 5;
-    tree = new Tree(root, 0, 0, 0);
-            root = tree.create();
-    return root;
-  }
+  this.angle = angle;
+
+  this.trunkSize = 2;
+  this.leafSize = 3;
+}
+
+Tree.prototype.create = function() {
+
+      // Trunk
+      var trunk = osg.createTexturedBox(0, 0, 0, this.trunkSize, this.trunkSize, this.trunkSize);
+      var trunkMaterial = new osg.Material();
+      trunkMaterial.setDiffuse([0.5, 0.3, 0.0, 1.0]);
+      trunk.getOrCreateStateSet().setAttributeAndMode(trunkMaterial);
+  
+      var trunkMatrixTranslate1  = new osg.Matrix.create();
+      var trunkMatrixRotate1  = new osg.Matrix.create();
+      trunkMatrixTranslate1  = osg.Matrix.makeTranslate( 0 + this.x, 0 + this.y, 0 + this.z, trunkMatrixTranslate1 );
+      trunkMatrixRotate1 = osg.Matrix.makeRotate( 0 + this.angle,  0 + this.rx, 0 + this.ry, 0 + this.rz, trunkMatrixRotate1);
+      var trunkMatrix1TranslateTransform = new osg.MatrixTransform();
+      trunkMatrix1TranslateTransform.setMatrix(trunkMatrixTranslate1 );
+      var trunkMatrix1RotateTransform = new osg.MatrixTransform();
+      trunkMatrix1RotateTransform.setMatrix(trunkMatrixRotate1 );
+      this.localTransform.addChild(trunkMatrix1RotateTransform);
+      trunkMatrix1RotateTransform.addChild(trunkMatrix1TranslateTransform);
+      trunkMatrix1TranslateTransform.addChild(trunk);
+  
+      var trunkMatrixTranslate2  = new osg.Matrix.create();
+      var trunkMatrixRotate2  = new osg.Matrix.create();
+      trunkMatrixTranslate2  = osg.Matrix.makeTranslate( 0 + this.x, 0 + this.y, this.trunkSize + this.z, trunkMatrixTranslate2 );
+      trunkMatrixRotate2 = osg.Matrix.makeRotate( 0 + this.angle,  0 + this.rx, 0 + this.ry, 0 + this.rz, trunkMatrixRotate2);
+      var trunkMatrix2TranslateTransform = new osg.MatrixTransform();
+      trunkMatrix2TranslateTransform.setMatrix(trunkMatrixTranslate2 );
+      var trunkMatrix2RotateTransform = new osg.MatrixTransform();
+      trunkMatrix2RotateTransform.setMatrix(trunkMatrixRotate2 );
+      this.localTransform.addChild(trunkMatrix2RotateTransform);
+      trunkMatrix2RotateTransform.addChild(trunkMatrix2TranslateTransform);
+      trunkMatrix2TranslateTransform.addChild(trunk);
+
+      var trunkMatrixTranslate3  = new osg.Matrix.create();
+      var trunkMatrixRotate3  = new osg.Matrix.create();
+      trunkMatrixTranslate3  = osg.Matrix.makeTranslate( 0 + this.x, 0 + this.y, 2*this.trunkSize + this.z, trunkMatrixTranslate3 );
+      trunkMatrixRotate3 = osg.Matrix.makeRotate( 0 + this.angle,  0 + this.rx, 0 + this.ry, 0 + this.rz, trunkMatrixRotate3);
+      var trunkMatrix3TranslateTransform = new osg.MatrixTransform();
+      trunkMatrix3TranslateTransform.setMatrix(trunkMatrixTranslate3 );
+      var trunkMatrix3RotateTransform = new osg.MatrixTransform();
+      trunkMatrix3RotateTransform.setMatrix(trunkMatrixRotate3 );
+      this.localTransform.addChild(trunkMatrix3RotateTransform);
+      trunkMatrix3RotateTransform.addChild(trunkMatrix3TranslateTransform);
+      trunkMatrix3TranslateTransform.addChild(trunk);
+  
+    //   // Leafs
+
+      var leafSize = 3;
+      var leaf = osg.createTexturedBox(0, 0, 0, this.leafSize, this.leafSize, this.leafSize);
+      var leafMaterial = new osg.Material();
+      leafMaterial.setDiffuse([0.0, 0.6, 0.2, 1.0]);
+      leaf.getOrCreateStateSet().setAttributeAndMode(leafMaterial);
+  
+      var leafMatrixTranslate1  = new osg.Matrix.create();
+      var leafMatrixRotate1  = new osg.Matrix.create();
+      leafMatrixTranslate1  = osg.Matrix.makeTranslate( this.leafSize/2 + this.x, 0 + this.y, 3*this.trunkSize + this.z, leafMatrixTranslate1 );
+      leafMatrixRotate1 = osg.Matrix.makeRotate( 0 + this.angle,  0 + this.rx, 0 + this.ry, 0 + this.rz, leafMatrixRotate1);
+      var leafMatrix1TranslateTransform = new osg.MatrixTransform();
+      leafMatrix1TranslateTransform.setMatrix(leafMatrixTranslate1 );
+      var leafMatrix1RotateTransform = new osg.MatrixTransform();
+      leafMatrix1RotateTransform.setMatrix(leafMatrixRotate1 );
+      this.localTransform.addChild(leafMatrix1RotateTransform);
+      leafMatrix1RotateTransform.addChild(leafMatrix1TranslateTransform);
+      leafMatrix1TranslateTransform.addChild(leaf);
+
+      var leafMatrixTranslate2  = new osg.Matrix.create();
+      var leafMatrixRotate2  = new osg.Matrix.create();
+      leafMatrixTranslate2  = osg.Matrix.makeTranslate( -this.leafSize/2 + this.x, this.leafSize/2 + this.y, 3*this.trunkSize + this.z, leafMatrixTranslate2 );
+      leafMatrixRotate2 = osg.Matrix.makeRotate( 0 + this.angle,  0 + this.rx, 0 + this.ry, 0 + this.rz, leafMatrixRotate2);
+      var leafMatrix2TranslateTransform = new osg.MatrixTransform();
+      leafMatrix2TranslateTransform.setMatrix(leafMatrixTranslate2 );
+      var leafMatrix2RotateTransform = new osg.MatrixTransform();
+      leafMatrix2RotateTransform.setMatrix(leafMatrixRotate2 );
+      this.localTransform.addChild(leafMatrix2RotateTransform);
+      leafMatrix2RotateTransform.addChild(leafMatrix2TranslateTransform);
+      leafMatrix2TranslateTransform.addChild(leaf);
+
+      var leafMatrixTranslate3  = new osg.Matrix.create();
+      var leafMatrixRotate3  = new osg.Matrix.create();
+      leafMatrixTranslate3  = osg.Matrix.makeTranslate( 0 + this.x, -this.leafSize/2 + this.y, 3*this.trunkSize + this.z, leafMatrixTranslate3 );
+      leafMatrixRotate3 = osg.Matrix.makeRotate( 0 + this.angle,  0 + this.rx, 0 + this.ry, 0 + this.rz, leafMatrixRotate3);
+      var leafMatrix3TranslateTransform = new osg.MatrixTransform();
+      leafMatrix3TranslateTransform.setMatrix(leafMatrixTranslate3 );
+      var leafMatrix3RotateTransform = new osg.MatrixTransform();
+      leafMatrix3RotateTransform.setMatrix(leafMatrixRotate3 );
+      this.localTransform.addChild(leafMatrix3RotateTransform);
+      leafMatrix3RotateTransform.addChild(leafMatrix3TranslateTransform);
+      leafMatrix3TranslateTransform.addChild(leaf);
+  
+    //   return this.root;
+}
