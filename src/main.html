@@ -8,16 +8,17 @@
     <script type="text/javascript" src="Project/text1.js"></script>
     <script type="text/javascript" src="Project/Button.js"></script>
     <script type="text/javascript" src="Project/Callbacks.js"></script>
+    <script type="text/javascript" src="Project/Moon.js"></script>
     <script type="text/javascript">
 
 var state = 0;
 
 function init() {
     enablePicking();
+    disableDefaultLight();
+
 }
 
-
-  
   function createScene() {
     var root = new osg.Node();
 
@@ -38,7 +39,7 @@ function init() {
     globalTranslation.addChild(objectsRotation);
 
     //Create world
-    world = new World(objectsRotation, 1);
+    world = new World(objectsRotation, 30);
     world.create();
 
     //Create trees
@@ -50,6 +51,10 @@ function init() {
     tree2.create();
     tree3.create();
     tree4.create();
+
+    //Create Moon
+    moon = new Moon(objectsRotation,0,8,-30, Math.PI/2, 0, 1, 0);
+    moon.create();
 
     //Create text1
     text1(objectsRotation,0,0,15, 0,0, 0, 0, 0);
@@ -63,92 +68,10 @@ function init() {
     var rotateCallback = new WorldRotateCallback();
     objectsRotation.addUpdateCallback(rotateCallback);
 
-    //////////////Moon
 
-    var m=2;
-    var t =4;
-    var vertexAttribArray = new osg.BufferArray(osg.BufferArray.ARRAY_BUFFER, null , 3);
-    vertexAttribArray.setElements(new Float32Array(
-        [ 
-        //front side
-        0, 0, 0,
-        2*m, 0, m,
-        2*m, 0, 2*m,
-        4*m, 0.0, 3*m,
-        3*m, 0.0, 4*m,
-        4*m,0,5*m,
-        2*m,0,6*m,
-        2*m,0,7*m,
-        0,0,8*m,
-        //backside
-        0, t, 0,
-        2*m, t, m,
-        2*m, t, 2*m,
-        4*m, t, 3*m,
-        3*m, t, 4*m,
-        4*m,t,5*m,
-        2*m,t,6*m,
-        2*m,t,7*m,
-        0,t,8*m
-        ]));
-
-    var indices = new osg.BufferArray(osg.BufferArray.ELEMENT_ARRAY_BUFFER, null, 1 );
-    indices.setElements(new Uint16Array(
-        [ 
-        // front side
-        0, 1, 2,
-        2, 1, 3,
-        3, 4, 2,
-        4, 3, 5,
-        4, 5, 6,
-        5,7,6,
-        6,7,8,
-        //backside
-        9, 11, 10,
-        10, 11, 12,
-        13, 12, 11,
-        12, 13, 14,
-        14, 13, 15,
-        16, 14,15,
-        16,15,17,
-        //external curve
-        7,17,8,
-        7,16,17,
-        5,16,7,
-        5,14,16,
-        5,12,14,
-        3,12,5,
-        3,10,12,
-        3,9,10,
-        3,1,10,
-        3,1,9,
-        1,0,9,
-        //internal curve
-        8,17,6,
-        6,17,15,
-        4,6,15,
-        15,13,4,
-        4,13,11,
-        2,4,13,
-        2,13,11,
-        2,11,0,
-        9,0,11
-        ]));
-
-    var geometry = new osg.Geometry();
-    geometry.setVertexAttribArray('Vertex', vertexAttribArray);
-    geometry.getPrimitives().push(new osg.DrawElements(osg.PrimitiveSet.TRIANGLES, indices));
-
-    var root = new osg.Node();
-    root.addChild(geometry);
     return root;
-    }
-    
-
-   
-function init() {
-    disableDefaultLight();
 }
+    
 
     </script>
 </head>
