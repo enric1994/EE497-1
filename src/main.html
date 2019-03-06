@@ -15,7 +15,7 @@ var state = 0;
 
 function init() {
     enablePicking();
-    disableDefaultLight();
+    // disableDefaultLight();
 
 }
 
@@ -42,11 +42,29 @@ function init() {
     world = new World(objectsRotation, 30);
     world.create();
 
-    //Create trees
-    tree1 = new Tree(objectsRotation,3,8,15, 0, 0, 0, 0);
-    tree2 = new Tree(objectsRotation,-10,8,15, 0,0, 0, 0, 0);
-    tree3 = new Tree(objectsRotation,12,-12,15, 0,0, 0, 0, 0);
-    tree4 = new Tree(objectsRotation,-13,-7,15, 0,0, 0, 0, 0);
+    //Create trees (summer)
+    tree1 = new Tree(objectsRotation,
+    3,8,15,
+    0, 0, 0, 0,
+    0.6,0.7,0.2,
+    0.1,0.8,0.3);
+    tree2 = new Tree(objectsRotation,
+    -10,8,15,
+    0,0, 0, 0, 0,
+    0.6,0.7,0.2,
+    0.1,0.8,0.3);
+    tree3 = new Tree(objectsRotation,
+    12,-12,15,
+    0,0, 0, 0, 0,
+    0.6,0.7,0.2,
+    0.1,0.8,0.3);
+    tree4 = new Tree(objectsRotation,
+    -13,-7,15,
+    0,0, 0, 0, 0,
+    0.6,0.7,0.2,
+    0.1,0.8,0.3);
+    // tree3 = new Tree(objectsRotation,12,-12,15, 0,0, 0, 0, 0);
+    // tree4 = new Tree(objectsRotation,-13,-7,15, 0,0, 0, 0, 0);
     tree1.create();
     tree2.create();
     tree3.create();

@@ -1,6 +1,10 @@
 
      
-function Tree(localTransform, x, y, z, rx, ry, rz, angle) {
+function Tree(localTransform, 
+  x, y, z,
+  rx, ry, rz, angle,
+  trunkColorR, trunkColorG, trunkColorB,
+  leafColorR, leafColorG, leafColorB) {
   this.localTransform = localTransform;
   this.x = x;
   this.y = y;
@@ -12,6 +16,14 @@ function Tree(localTransform, x, y, z, rx, ry, rz, angle) {
 
   this.angle = angle;
 
+  this.trunkColorR= trunkColorR;
+  this.trunkColorG= trunkColorG;
+  this.trunkColorB= trunkColorB;
+
+  this.leafColorR= leafColorR;
+  this.leafColorG= leafColorG;
+  this.leafColorB= leafColorB;
+
   this.trunkSize = 2;
   this.leafSize = 3;
 }
@@ -21,7 +33,7 @@ Tree.prototype.create = function() {
       // Trunk
       var trunk = osg.createTexturedBox(0, 0, 0, this.trunkSize, this.trunkSize, this.trunkSize);
       var trunkMaterial = new osg.Material();
-      trunkMaterial.setDiffuse([0.5, 0.3, 0.0, 1.0]);
+      trunkMaterial.setDiffuse([this.trunkColorR, this.trunkColorG, this.trunkColorB, 1.0]);
       trunk.getOrCreateStateSet().setAttributeAndMode(trunkMaterial);
   
       var trunkMatrixTranslate1  = new osg.Matrix.create();
@@ -65,7 +77,7 @@ Tree.prototype.create = function() {
       var leafSize = 3;
       var leaf = osg.createTexturedBox(0, 0, 0, this.leafSize, this.leafSize, this.leafSize);
       var leafMaterial = new osg.Material();
-      leafMaterial.setDiffuse([0.0, 0.6, 0.2, 1.0]);
+      leafMaterial.setDiffuse([this.leafColorR, this.leafColorG, this.leafColorB, 1.0]);
       leaf.getOrCreateStateSet().setAttributeAndMode(leafMaterial);
   
       var leafMatrixTranslate1  = new osg.Matrix.create();
