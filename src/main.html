@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="main.css" />
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="Project/Tree.js"></script>
+    <script type="text/javascript" src="Project/Sun.js"></script>
     <script type="text/javascript" src="Project/World.js"></script>
     <script type="text/javascript" src="Project/Button.js"></script>
     <script type="text/javascript" src="Project/Callbacks.js"></script>
@@ -14,7 +15,7 @@ var state = 0;
 
 function init() {
     enablePicking();
-    disableDefaultLight();
+    // disableDefaultLight();
 
 }
 
@@ -26,7 +27,7 @@ function init() {
     
     //Offset all the objects position
     var globalTranslationMatrix  = new osg.Matrix.create();
-    globalTranslationMatrix = osg.Matrix.makeTranslate( 0,0,-15, globalTranslationMatrix);
+    globalTranslationMatrix = osg.Matrix.makeTranslate( 0,0,-18, globalTranslationMatrix);
     var globalTranslation = new osg.MatrixTransform();
     globalTranslation.setMatrix(globalTranslationMatrix);
 
@@ -44,30 +45,53 @@ function init() {
     //Create trees (summer)
     tree1 = new Tree(objectsRotation,
     3,8,15,
-    0, 0, 0, 0,
-    0.6,0.7,0.2,
+    0, 0, 1, 0.3,
+    0.6,0.3,0.1,
     0.1,0.8,0.3);
     tree2 = new Tree(objectsRotation,
-    -10,8,15,
-    0,0, 0, 0,
-    0.6,0.7,0.2,
+    -5,-8,15,
+    0,0, 1, -0.6,
+    0.6,0.3,0.1,
     0.1,0.8,0.3);
     tree3 = new Tree(objectsRotation,
-    12,-12,15,
-    0,0, 0, 0,
-    0.6,0.7,0.2,
+    12,3,15,
+    0,0, 1, 2,
+    0.6,0.3,0.1,
     0.1,0.8,0.3);
     tree4 = new Tree(objectsRotation,
-    -13,-7,15,
-    0,0, 0, 0,
-    0.6,0.7,0.2,
+    -13,7,15,
+    0,0, 1, 3,
+    0.6,0.3,0.1,
     0.1,0.8,0.3);
-    // tree3 = new Tree(objectsRotation,12,-12,15, 0,0, 0, 0, 0);
-    // tree4 = new Tree(objectsRotation,-13,-7,15, 0,0, 0, 0, 0);
+    tree5 = new Tree(objectsRotation,
+    -8,2,15,
+    0,0, 2, 3.2,
+    0.6,0.3,0.1,
+    0.1,0.8,0.3);
+    tree6 = new Tree(objectsRotation,
+    -13,4,15,
+    0,0, 1, 1,
+    0.6,0.3,0.1,
+    0.1,0.8,0.3);
+    tree7 = new Tree(objectsRotation,
+    -3,7,15,
+    0,0, 1, 3.3 ,
+    0.6,0.3,0.1,
+    0.1,0.8,0.3);
+
     tree1.create();
     tree2.create();
     tree3.create();
     tree4.create();
+    tree5.create();
+    tree6.create();
+    tree7.create();
+
+    //Create Sun
+    sun = new Sun(objectsRotation,
+    -3,17,30, 7);
+
+    sun.create();
 
     //Create Moon
     moon = new Moon(objectsRotation,0,8,-30, Math.PI/2, 0, 1, 0);

@@ -34,6 +34,12 @@ Tree.prototype.create = function() {
       var trunk = osg.createTexturedBox(0, 0, 0, this.trunkSize, this.trunkSize, this.trunkSize);
       var trunkMaterial = new osg.Material();
       trunkMaterial.setDiffuse([this.trunkColorR, this.trunkColorG, this.trunkColorB, 1.0]);
+      trunkMaterial.setSpecular([1.0, 1.0, 1.0, 1.0]);
+      trunkMaterial.setShininess(50);
+      var ambientLight = new osg.Light(0);
+      ambientLight.setAmbient([1,1,0.3, 1.0]);
+      var lightSource = new osg.LightSource();
+      lightSource.setLight(ambientLight);
       trunk.getOrCreateStateSet().setAttributeAndMode(trunkMaterial);
   
       var trunkMatrixTranslate1  = new osg.Matrix.create();
@@ -78,6 +84,12 @@ Tree.prototype.create = function() {
       var leaf = osg.createTexturedBox(0, 0, 0, this.leafSize, this.leafSize, this.leafSize);
       var leafMaterial = new osg.Material();
       leafMaterial.setDiffuse([this.leafColorR, this.leafColorG, this.leafColorB, 1.0]);
+      leafMaterial.setSpecular([1.0, 1.0, 1.0, 1.0]);
+      leafMaterial.setShininess(50);
+      var ambientLight = new osg.Light(1);
+      ambientLight.setAmbient([1,1,0.3, 1.0]);
+      var lightSource = new osg.LightSource();
+      lightSource.setLight(ambientLight);
       leaf.getOrCreateStateSet().setAttributeAndMode(leafMaterial);
   
       var leafMatrixTranslate1  = new osg.Matrix.create();
