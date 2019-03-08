@@ -8,7 +8,7 @@ WorldRotateCallback.prototype = {
         osg.Matrix.makeRotate(this.angle, 0.0, 1.0, 0.0, matrix);
 
         if (this.angle < (state)*Math.PI/2){
-            this.angle += 0.1;
+            this.angle += 0.002;
         }
     }
 };
