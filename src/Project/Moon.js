@@ -10,8 +10,8 @@ function Moon(localTransform, x, y, z, rx, ry, rz, angle) {
   
     this.angle = angle;
   
-    this.moon_size = 2;
-    this.moon_width = 3;
+    this.moon_size = 1;
+    this.moon_width = 2;
   }
   
   Moon.prototype.create = function() {
