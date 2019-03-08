@@ -5,6 +5,7 @@
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="Project/Tree.js"></script>
     <script type="text/javascript" src="Project/Trees.js"></script>
+    <script type="text/javascript" src="Project/FallingLeaf.js"></script>
     <script type="text/javascript" src="Project/Sun.js"></script>
     <script type="text/javascript" src="Project/Background.js"></script>
     <script type="text/javascript" src="Project/World.js"></script>
@@ -47,16 +48,6 @@ function init() {
     //Create trees
     trees(objectsRotation)
 
-    //Create Sun
-    sun = new Sun(objectsRotation,
-    -3,17,30, 7);
-
-    sun.create();
-
-    //Create Moon
-    moon = new Moon(objectsRotation,14,8,-30, Math.PI/2, 0, 1, 0);
-    moon.create();
-
     // //Create text1
     // text1(objectsRotation,0,0,15, 0,0, 0, 0, 0);
 
@@ -83,8 +74,69 @@ function init() {
     // root.addChild(createAmbientLight());
     root.addChild(createSpotLight());
 
+    
+// Falling Leafs
+// fleaf = new FallingLeaf(objectsRotation,
+//     0,10,20,
+//     0,0, 1, 3.3 ,
+//     0,0.4,0);
+
+//     fleaf.create();
+
+   
+    //Create Sun
+    var sunTranslation = new osg.MatrixTransform();
+    globalTranslation.addChild(sunTranslation);
+    
+    
+    var sunCallback = new SunCallback();
+    sunTranslation.addUpdateCallback(sunCallback);
+
+    sun = new Sun(sunTranslation,
+    -0,0,0, 15);
+
+    sun.create();
+
+ 
+
+
+        //Create Moon
+        var moonTranslation = new osg.MatrixTransform();
+    globalTranslation.addChild(moonTranslation);
+
+    
+    var moonCallback = new MoonCallback();
+    moonTranslation.addUpdateCallback(moonCallback);
+
+    moon = new Moon(moonTranslation,0,0,0, Math.PI/2, 0, 1, 0);
+    moon.create();
+
     return root;
 }
+
+var SunCallback = function() {};
+SunCallback.prototype = {
+    update: function(node,nodeVisitor) {
+        var currentTime = nodeVisitor.getFrameStamp().getSimulationTime();
+
+        var matrix = node.getMatrix();
+        osg.Matrix.makeTranslate(45*Math.sin(currentTime), 45*Math.sin(currentTime), 45*Math.cos(currentTime), matrix);
+
+    }
+};
+
+var MoonCallback = function() {};
+MoonCallback.prototype = {
+    update: function(node,nodeVisitor) {
+        var currentTime = nodeVisitor.getFrameStamp().getSimulationTime();
+
+        var matrix = node.getMatrix();
+        osg.Matrix.makeTranslate(45*Math.sin(currentTime+Math.PI), 45*Math.sin(currentTime+Math.PI), 45*Math.cos(currentTime+Math.PI), matrix);
+
+    }
+};
+
+///////////////
 function createAmbientLight(r, g, b) {
 
 var lightNumber = getNextLightNumber();
