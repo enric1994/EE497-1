@@ -20,6 +20,9 @@ ClickCallback.prototype = {
     update: function(node) {
         node.onpick = function(){
             state += 1;
+            // if (state==2){
+            //     enableDefaultLight();
+            // }
         }
     }
 };
