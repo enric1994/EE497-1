@@ -15,6 +15,7 @@
     <script type="text/javascript">
 
 var state = 0;
+var light = ' ';
 
 function init() {
     enablePicking();
@@ -48,11 +49,7 @@ function init() {
     //Create trees
     trees(objectsRotation)
 
-    // //Create text1
-    // text1(objectsRotation,0,0,15, 0,0, 0, 0, 0);
-
-    
-    //Create spin button
+     //Create spin button
     button = new Button(root);
     button.create();
 
@@ -60,24 +57,20 @@ function init() {
     var rotateCallback = new WorldRotateCallback();
     objectsRotation.addUpdateCallback(rotateCallback);
 
-    //Background
-
-    // background = new Background(
-    //     root,
-    // 0,200,-240,
-    // 0,0, 0, 0);
-
-    // background.create();
-
-    //Lighting
-    // objectsRotation.addChild(createDirectionalLight(1,0,0, 1,1,1));
-    // root.addChild(createAmbientLight(1,0,0));
+    //Basic Spot Light
     root.addChild(createSpotLight(5,-20,20,
     0,1,-1,
-    1,1,1,
+    0.6,0.6,0.6,
     1,0,0,
     90, 1));
   
+    //Light update Callback (error)
+
+    // var lightSource = new osg.LightSource();
+    // root.addChild(lightSource);
+    // var lightCallback = new LightCallback();
+    // lightSource.addUpdateCallback(lightCallback);
+
     //Create Sun
     var sunTranslation = new osg.MatrixTransform();
     globalTranslation.addChild(sunTranslation);
@@ -91,10 +84,7 @@ function init() {
 
     sun.create();
 
- 
-
-
-        //Create Moon
+         //Create Moon
         var moonTranslation = new osg.MatrixTransform();
     globalTranslation.addChild(moonTranslation);
 

@@ -20,14 +20,63 @@ ClickCallback.prototype = {
     update: function(node) {
         node.onpick = function(){
             state += 1;
-            // if (state==2){
-            //     enableDefaultLight();
+            
+            //Autumn
+            // if (state%4==1){
+            //     // autimnLight = createAmbientLight(0,1,0);
+            //     node.addChild(createAmbientLight(0,1,0));
             // }
         }
     }
 };
 
-// Sun callback
+// Light Callback
+// var lastLight = createAmbientLight(0,0,0);
+var LightCallback = function() {};
+LightCallback.prototype = {
+    update: function(node) {
+        //Summer
+        if (state%4==0 && light != 's'){
+            summerLight = createAmbientLight(0,0,1);
+            node.addChild(summerLight);
+            node.removeChild(lastLight);
+            lastLight = summerLight;
+            light = 's';
+        
+        }
+
+        //Autumn
+        if (state%4==1 && light != 'a'){
+            autumnLight = createAmbientLight(0,1,0);
+            node.addChild(autumnLight);
+            node.removeChild(lastLight);
+            lastLight = autumnLight;
+            light = 'a';
+        
+        }
+        //Winter
+        if (state%4==2 && light != 'w'){
+            winterLight = createAmbientLight(0,0,0);
+            node.addChild(winterLight);
+            node.removeChild(lastLight);
+            lastLight = winterLight;
+            light = 'w';
+        
+        }
+        //Spring
+        if (state%4==3 && light != 'sp'){
+            springLight = createAmbientLight(0,1,1);
+            node.addChild(springLight);
+            node.removeChild(lastLight);
+            lastLight = springLight;
+            light = 'sp';
+        
+        }
+    }
+};
+
+
+// Sun callback (error)
 var SunCallback = function() {};
 SunCallback.prototype = {
     update: function(node,nodeVisitor) {
