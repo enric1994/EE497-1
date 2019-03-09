@@ -231,7 +231,7 @@ function World(localTransform, worldSize) {
   // world.getOrCreateStateSet().setAttributeAndMode(worldMaterial);
 
 
-    var sface = osg.createTexturedBoxGeometry(0, 0, 0, this.worldSize, 1, this.worldSize);
+    var sface = osg.createTexturedBoxGeometry(0, 0, 0, this.worldSize, 0.001, this.worldSize);
     sface.getOrCreateStateSet().setTextureAttributeAndModes(0, osg.Texture.createFromURL("res/textures/building.jpg"));
                 
     
@@ -250,7 +250,7 @@ function World(localTransform, worldSize) {
     worldRotateTransform.addChild(worldTranslateTransform);
     worldTranslateTransform.addChild(sface);
 ///autumn
-    var sface = osg.createTexturedBoxGeometry(0, 0, 0, this.worldSize, 1, this.worldSize);
+    var sface = osg.createTexturedBoxGeometry(0, 0, 0, this.worldSize, 0.001, this.worldSize);
     sface.getOrCreateStateSet().setTextureAttributeAndModes(0, osg.Texture.createFromURL("res/textures/building.jpg"));
                 
     
@@ -271,7 +271,7 @@ function World(localTransform, worldSize) {
 
     ////winter
 
-    var sface = osg.createTexturedBoxGeometry(0, 0, 0, this.worldSize, 1, this.worldSize);
+    var sface = osg.createTexturedBoxGeometry(0, 0, 0, this.worldSize, 0.001, this.worldSize);
     sface.getOrCreateStateSet().setTextureAttributeAndModes(0, osg.Texture.createFromURL("res/textures/building.jpg"));
                 
     
@@ -291,7 +291,7 @@ function World(localTransform, worldSize) {
     worldTranslateTransform.addChild(sface);
 
     //spring
-    var sface = osg.createTexturedBoxGeometry(0, 0, 0, this.worldSize, 1, this.worldSize);
+    var sface = osg.createTexturedBoxGeometry(0, 0, 0, this.worldSize, 0.001, this.worldSize);
     sface.getOrCreateStateSet().setTextureAttributeAndModes(0, osg.Texture.createFromURL("res/textures/building.jpg"));
                 
     
@@ -310,6 +310,25 @@ function World(localTransform, worldSize) {
     worldRotateTransform.addChild(worldTranslateTransform);
     worldTranslateTransform.addChild(sface);
     
+    //front face
+    var sface = osg.createTexturedBoxGeometry(0, 0, 0, this.worldSize, 0.001, this.worldSize);
+    sface.getOrCreateStateSet().setTextureAttributeAndModes(0, osg.Texture.createFromURL("res/textures/building.jpg"));
+                
+    
+    var worldMatrixTranslate  = new osg.Matrix.create();
+    worldMatrixTranslate  = osg.Matrix.makeTranslate(0,15,0, worldMatrixTranslate);
+    var worldTranslateTransform = new osg.MatrixTransform();
+    worldTranslateTransform.setMatrix(worldMatrixTranslate );
+    
+    var worldMatrixRotate  = new osg.Matrix.create();
+    worldMatrixRotate = osg.Matrix.makeRotate(-Math.PI ,1,0,0, worldMatrixRotate);
+    var worldRotateTransform = new osg.MatrixTransform();
+    worldRotateTransform.setMatrix(worldMatrixRotate );
+    
+    
+    this.localTransform.addChild(worldRotateTransform);
+    worldRotateTransform.addChild(worldTranslateTransform);
+    worldTranslateTransform.addChild(sface);
     }
   
 
