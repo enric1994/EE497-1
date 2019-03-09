@@ -26,3 +26,41 @@ ClickCallback.prototype = {
         }
     }
 };
+
+// Sun callback
+var SunCallback = function() {};
+SunCallback.prototype = {
+    update: function(node,nodeVisitor) {
+        lastLight = createDirectionalLight(45*Math.sin(currentTime), 45*Math.sin(currentTime), 45*Math.cos(currentTime), 1,1,1)
+        var currentTime = nodeVisitor.getFrameStamp().getSimulationTime();
+
+        var matrix = node.getMatrix();
+        osg.Matrix.makeTranslate(45*Math.sin(currentTime), 45*Math.sin(currentTime), 45*Math.cos(currentTime), matrix);
+        
+            // if (currentTime%2 < 0.02){
+            //     console.log('light updated')
+            //     dlight = createDirectionalLight(45*Math.sin(currentTime), 45*Math.sin(currentTime), 45*Math.cos(currentTime), 1,1,1)
+                
+            //     node.removeChild(lastLight);
+            //     node.addChild(dlight);
+            //     lastLight = dlight;
+            // }
+            
+
+            
+            // console.log('light updated!')
+        
+    }
+};
+
+// Moon callback
+var MoonCallback = function() {};
+MoonCallback.prototype = {
+    update: function(node,nodeVisitor) {
+        var currentTime = nodeVisitor.getFrameStamp().getSimulationTime();
+
+        var matrix = node.getMatrix();
+        osg.Matrix.makeTranslate(45*Math.sin(currentTime+Math.PI), 45*Math.sin(currentTime+Math.PI), 45*Math.cos(currentTime+Math.PI), matrix);
+
+    }
+};

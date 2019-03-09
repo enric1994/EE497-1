@@ -8,6 +8,7 @@
     <script type="text/javascript" src="Project/FallingLeaf.js"></script>
     <script type="text/javascript" src="Project/Sun.js"></script>
     <script type="text/javascript" src="Project/Background.js"></script>
+    <script type="text/javascript" src="Project/Lights.js"></script>
     <script type="text/javascript" src="Project/World.js"></script>
     <script type="text/javascript" src="Project/Button.js"></script>
     <script type="text/javascript" src="Project/Callbacks.js"></script>
@@ -18,7 +19,7 @@ var state = 0;
 
 function init() {
     enablePicking();
-    // disableDefaultLight();
+    disableDefaultLight();
 
 }
 
@@ -70,20 +71,10 @@ function init() {
     // background.create();
 
     //Lighting
-    root.addChild(createDirectionalLight());
-    // root.addChild(createAmbientLight());
-    root.addChild(createSpotLight());
-
-    
-// Falling Leafs
-// fleaf = new FallingLeaf(objectsRotation,
-//     0,10,20,
-//     0,0, 1, 3.3 ,
-//     0,0.4,0);
-
-//     fleaf.create();
-
-   
+    // objectsRotation.addChild(createDirectionalLight(1,0,0, 1,1,1));
+    // root.addChild(createAmbientLight(1,0,0));
+    // root.addChild(createSpotLight(x, y, z, r, g, b, c, l, q, cutoff, blend));
+  
     //Create Sun
     var sunTranslation = new osg.MatrixTransform();
     globalTranslation.addChild(sunTranslation);
@@ -114,110 +105,6 @@ function init() {
     return root;
 }
 
-var SunCallback = function() {};
-SunCallback.prototype = {
-    update: function(node,nodeVisitor) {
-        var currentTime = nodeVisitor.getFrameStamp().getSimulationTime();
-
-        var matrix = node.getMatrix();
-        osg.Matrix.makeTranslate(45*Math.sin(currentTime), 45*Math.sin(currentTime), 45*Math.cos(currentTime), matrix);
-
-    }
-};
-
-var MoonCallback = function() {};
-MoonCallback.prototype = {
-    update: function(node,nodeVisitor) {
-        var currentTime = nodeVisitor.getFrameStamp().getSimulationTime();
-
-        var matrix = node.getMatrix();
-        osg.Matrix.makeTranslate(45*Math.sin(currentTime+Math.PI), 45*Math.sin(currentTime+Math.PI), 45*Math.cos(currentTime+Math.PI), matrix);
-
-    }
-};
-
-///////////////
-function createAmbientLight(r, g, b) {
-
-var lightNumber = getNextLightNumber();
-var ambientLight = new osg.Light(lightNumber);
-ambientLight.setPosition([0, 0, 0, 0.5]);
-
-if(typeof r === 'undefined') r = 1;
-if(typeof g === 'undefined') g = 1;
-if(typeof b === 'undefined') b = 0.4;
-ambientLight.setDiffuse([0.5, 0.5, 0.5, 1.0]);
-ambientLight.setSpecular([0.0, 0.0, 0.0, 1.0]);
-ambientLight.setAmbient([r, g, b, 1.0]);
-
-var lightSource = new osg.LightSource();
-lightSource.setLight(ambientLight);
-return lightSource;
-}
-function createDirectionalLight(x, y, z, r, g, b) {
-
-var lightNumber = getNextLightNumber();
-var directionalLight = new osg.Light(lightNumber);
-
-if(typeof x === 'undefined') x = 1.0;
-if(typeof y === 'undefined') y = -1.0;
-if(typeof z === 'undefined') z = 1.0;
-directionalLight.setPosition([x, y, z, 0.0]);
-
-if(typeof r === 'undefined') r = 0.8;
-if(typeof g === 'undefined') g = 0.8;
-if(typeof b === 'undefined') b = 0.8;
-directionalLight.setDiffuse([r, g, b, 1.0]);
-directionalLight.setSpecular([r, g, b, 1.0]);
-directionalLight.setAmbient([0.0, 0.0, 0.0, 1.0]);
-
-var lightSource = new osg.LightSource();
-lightSource.setLight(directionalLight);
-return lightSource;
-}
-function createSpotLight(x, y, z, r, g, b, c, l, q, cutoff, blend) {
-    var lightNumber = getNextLightNumber();
-    var spotLight = new osg.Light(lightNumber);
-
-    spotLight.setPosition([5, -5, 21, 1]);
-
-    if(typeof x === 'undefined') x = 0.0;
-    if(typeof y === 'undefined') y = 1;
-    if(typeof z === 'undefined') z = 0;
-    spotLight.setDirection([x, y, z]);
-
-    if(typeof r === 'undefined') r = 0.8;
-    if(typeof g === 'undefined') g = 0.8;
-    if(typeof b === 'undefined') b = 0.8;
-    spotLight.setDiffuse([r, g, b, 1.0]);
-    spotLight.setSpecular([r, g, b, 1.0]);
-    spotLight.setAmbient([0.0, 0.0, 0.0, 1.0]);
-
-    if(typeof c === 'undefined') c = 1.0;
-    if(typeof l === 'undefined') l = 0.0;
-    if(typeof q === 'undefined') q = 0.0;
-    spotLight.setConstantAttenuation(c);
-    spotLight.setLinearAttenuation(l);
-    spotLight.setQuadraticAttenuation(q);
-
-    if(typeof cutoff === 'undefined') cutoff = 80.0;
-    spotLight.setSpotCutoff(cutoff);
-
-    if(typeof blend === 'undefined') blend = 1.0;
-    spotLight.setSpotBlend(blend);
-
-    var lightSource = new osg.LightSource();
-    lightSource.setLight(spotLight);
-    return lightSource;
-}
-
-var nextLightNumber = 0;
-function getNextLightNumber() {
-    return nextLightNumber++;
-}
-
-
-  
 
     </script>
 </head>
