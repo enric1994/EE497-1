@@ -80,11 +80,11 @@ function createDirectionalLight(x, y, z, r, g, b) {
     return lightSource;
 }
 
-function createSpotLight(x, y, z, r, g, b, c, l, q, cutoff, blend) {
+function createSpotLight(px, py, pz, x, y, z, r, g, b, c, l, q, cutoff, blend) {
     var lightNumber = getNextLightNumber();
     var spotLight = new osg.Light(lightNumber);
 
-    spotLight.setPosition([0, 0, 0, 1]);
+    spotLight.setPosition([px,py,pz, 1]);
 
     if(typeof x === 'undefined') x = 0.0;
     if(typeof y === 'undefined') y = 1.0;

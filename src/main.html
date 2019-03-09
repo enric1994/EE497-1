@@ -5,7 +5,6 @@
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="Project/Tree.js"></script>
     <script type="text/javascript" src="Project/Trees.js"></script>
-    <script type="text/javascript" src="Project/FallingLeaf.js"></script>
     <script type="text/javascript" src="Project/Sun.js"></script>
     <script type="text/javascript" src="Project/Background.js"></script>
     <script type="text/javascript" src="Project/Lights.js"></script>
@@ -73,7 +72,11 @@ function init() {
     //Lighting
     // objectsRotation.addChild(createDirectionalLight(1,0,0, 1,1,1));
     // root.addChild(createAmbientLight(1,0,0));
-    // root.addChild(createSpotLight(x, y, z, r, g, b, c, l, q, cutoff, blend));
+    root.addChild(createSpotLight(5,-20,20,
+    0,1,-1,
+    1,1,1,
+    1,0,0,
+    90, 1));
   
     //Create Sun
     var sunTranslation = new osg.MatrixTransform();
