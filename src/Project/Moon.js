@@ -89,7 +89,7 @@ function Moon(localTransform, x, y, z, rx, ry, rz, angle) {
       moon.getPrimitives().push(new osg.DrawElements(osg.PrimitiveSet.TRIANGLES, indices));
   
       var moonMaterial = new osg.Material();
-        moonMaterial.setDiffuse([1, 1, 0.6, 1.0]);
+        moonMaterial.setDiffuse([1, 1, 0.6, 0.3]);
         moon.getOrCreateStateSet().setAttributeAndMode(moonMaterial);
     
         var moonMatrixTranslate1  = new osg.Matrix.create();

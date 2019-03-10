@@ -7,8 +7,8 @@ WorldRotateCallback.prototype = {
         var matrix = node.getMatrix();
         osg.Matrix.makeRotate(this.angle, 0.0, 1.0, 0.0, matrix);
 
-        if (this.angle < (state)*Math.PI/2){
-            this.angle += 0.02;
+        if (this.angle <= state*Math.PI/2){
+            this.angle += 0.03;
         }
     }
 };
@@ -20,15 +20,11 @@ ClickCallback.prototype = {
     update: function(node) {
         node.onpick = function(){
             state += 1;
-            
-            //Autumn
-            // if (state%4==1){
-            //     // autimnLight = createAmbientLight(0,1,0);
-            //     node.addChild(createAmbientLight(0,1,0));
-            // }
+            spin_dir =1;
         }
     }
 };
+
 
 // Light Callback
 // var lastLight = createAmbientLight(0,0,0);
@@ -80,11 +76,11 @@ LightCallback.prototype = {
 var SunCallback = function() {};
 SunCallback.prototype = {
     update: function(node,nodeVisitor) {
-        lastLight = createDirectionalLight(45*Math.sin(currentTime), 45*Math.sin(currentTime), 45*Math.cos(currentTime), 1,1,1)
+        // lastLight = createDirectionalLight(45*Math.sin(currentTime), 45*Math.sin(currentTime), 45*Math.cos(currentTime), 1,1,1)
         var currentTime = nodeVisitor.getFrameStamp().getSimulationTime();
 
         var matrix = node.getMatrix();
-        osg.Matrix.makeTranslate(45*Math.sin(currentTime), 45*Math.sin(currentTime), 45*Math.cos(currentTime), matrix);
+        osg.Matrix.makeTranslate(45*Math.sin(currentTime/4), 45*Math.sin(currentTime/2), 45*Math.cos(currentTime/4), matrix);
         
             // if (currentTime%2 < 0.02){
             //     console.log('light updated')
@@ -109,7 +105,7 @@ MoonCallback.prototype = {
         var currentTime = nodeVisitor.getFrameStamp().getSimulationTime();
 
         var matrix = node.getMatrix();
-        osg.Matrix.makeTranslate(45*Math.sin(currentTime+Math.PI), 45*Math.sin(currentTime+Math.PI), 45*Math.cos(currentTime+Math.PI), matrix);
+        osg.Matrix.makeTranslate(45*Math.sin(currentTime/4+Math.PI), 45*Math.sin(currentTime/2+Math.PI), 45*Math.cos(currentTime/4+Math.PI), matrix);
 
     }
 };

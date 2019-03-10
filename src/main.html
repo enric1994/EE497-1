@@ -50,8 +50,10 @@ function init() {
     trees(objectsRotation)
 
      //Create spin button
-    button = new Button(root);
-    button.create();
+    button1 = new Button(root,
+    -8, 10, 20,
+    0, 1, 0, Math.PI/2);
+    button1.create();
 
     // Callback to rotate the world
     var rotateCallback = new WorldRotateCallback();
