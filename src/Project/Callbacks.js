@@ -32,20 +32,19 @@ LightCallback.prototype = {
     update: function(node) {
         //Summer
         if (state%4==0 && light != 's'){
-            summerLight = createAmbientLight(0,0,1);
-            node.addChild(summerLight);
-            node.removeChild(lastLight);
-            lastLight = summerLight;
+            node.setAmbient([1,0,0, 1.0]);
+
+            // summerLight = createAmbientLight(0,0,1);
+            // node.addChild(summerLight);
+            // node.removeChild(lastLight);
+            // lastLight = summerLight;
             light = 's';
         
         }
 
         //Autumn
         if (state%4==1 && light != 'a'){
-            autumnLight = createAmbientLight(0,1,0);
-            node.addChild(autumnLight);
-            node.removeChild(lastLight);
-            lastLight = autumnLight;
+            node.setAmbient([0,1,0, 1.0]);
             light = 'a';
         
         }
@@ -71,14 +70,14 @@ LightCallback.prototype = {
 };
 
 
-// Sun callback (error)
+// Sun callback
 var SunCallback = function() {};
 SunCallback.prototype = {
     update: function(node,nodeVisitor) {
         var currentTime = nodeVisitor.getFrameStamp().getSimulationTime();
 
         var matrix = node.getMatrix();
-        osg.Matrix.makeTranslate(45*Math.sin(currentTime/4), 45*Math.sin(currentTime/2), 45*Math.cos(currentTime/4), matrix);
+        osg.Matrix.makeTranslate(35*Math.sin(currentTime/4),20, 35*Math.cos(currentTime/4), matrix);
         
 }
 };
@@ -90,7 +89,7 @@ MoonCallback.prototype = {
         var currentTime = nodeVisitor.getFrameStamp().getSimulationTime();
 
         var matrix = node.getMatrix();
-        osg.Matrix.makeTranslate(45*Math.sin(currentTime/4+Math.PI), 45*Math.sin(currentTime/2+Math.PI), 45*Math.cos(currentTime/4+Math.PI), matrix);
+        osg.Matrix.makeTranslate(35*Math.sin(currentTime/4+Math.PI), 20, 35*Math.cos(currentTime/4+Math.PI), matrix);
 
     }
 };

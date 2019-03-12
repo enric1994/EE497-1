@@ -51,7 +51,7 @@ function init() {
 
      //Create spin button
     button1 = new Button(root,
-    -8, 10, 20,
+    -8, 3, 20,
     0, 1, 0, Math.PI/2);
     button1.create();
 
@@ -59,19 +59,14 @@ function init() {
     var rotateCallback = new WorldRotateCallback();
     objectsRotation.addUpdateCallback(rotateCallback);
 
-    //Basic Spot Light
+    // Basic Spot Light
     root.addChild(createSpotLight(5,-20,20,
     0,1,-1,
     0.6,0.6,0.6,
     1,0,0,
     90, 1));
   
-    //Light update Callback (error)
-
-    // var lightSource = new osg.LightSource();
-    // root.addChild(lightSource);
-    // var lightCallback = new LightCallback();
-    // lightSource.addUpdateCallback(lightCallback);
+    
 
     //Create Sun
     var sunTranslation = new osg.MatrixTransform();

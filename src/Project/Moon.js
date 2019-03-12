@@ -10,8 +10,8 @@ function Moon(localTransform, x, y, z, rx, ry, rz, angle) {
   
     this.angle = angle;
   
-    this.moon_size = 5;
-    this.moon_width = 4;
+    this.moon_size = 1;
+    this.moon_width = 6;
   }
   
   Moon.prototype.create = function() {
@@ -89,7 +89,7 @@ function Moon(localTransform, x, y, z, rx, ry, rz, angle) {
       moon.getPrimitives().push(new osg.DrawElements(osg.PrimitiveSet.TRIANGLES, indices));
   
       var moonMaterial = new osg.Material();
-        moonMaterial.setDiffuse([1, 1, 0.6, 0.3]);
+        moonMaterial.setDiffuse([1, 1, 0.6, 0.1]);
         moon.getOrCreateStateSet().setAttributeAndMode(moonMaterial);
     
         var moonMatrixTranslate1  = new osg.Matrix.create();
