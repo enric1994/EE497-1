@@ -59,14 +59,15 @@ function init() {
     var rotateCallback = new WorldRotateCallback();
     objectsRotation.addUpdateCallback(rotateCallback);
 
-    // Basic Spot Light
+    // Spot Light
     root.addChild(createSpotLight(5,-20,20,
     0,1,-1,
     0.6,0.6,0.6,
     1,0,0,
     90, 1));
   
-    
+    // Ambient light
+    root.addChild(createAmbientLight(1,0.8,0.6));
 
     //Create Sun
     var sunTranslation = new osg.MatrixTransform();

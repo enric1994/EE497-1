@@ -26,50 +26,6 @@ ClickCallback.prototype = {
 };
 
 
-// Light Callback
-var LightCallback = function() {};
-LightCallback.prototype = {
-    update: function(node) {
-        //Summer
-        if (state%4==0 && light != 's'){
-            node.setAmbient([1,0,0, 1.0]);
-
-            // summerLight = createAmbientLight(0,0,1);
-            // node.addChild(summerLight);
-            // node.removeChild(lastLight);
-            // lastLight = summerLight;
-            light = 's';
-        
-        }
-
-        //Autumn
-        if (state%4==1 && light != 'a'){
-            node.setAmbient([0,1,0, 1.0]);
-            light = 'a';
-        
-        }
-        //Winter
-        if (state%4==2 && light != 'w'){
-            winterLight = createAmbientLight(0,0,0);
-            node.addChild(winterLight);
-            node.removeChild(lastLight);
-            lastLight = winterLight;
-            light = 'w';
-        
-        }
-        //Spring
-        if (state%4==3 && light != 'sp'){
-            springLight = createAmbientLight(0,1,1);
-            node.addChild(springLight);
-            node.removeChild(lastLight);
-            lastLight = springLight;
-            light = 'sp';
-        
-        }
-    }
-};
-
-
 // Sun callback
 var SunCallback = function() {};
 SunCallback.prototype = {
