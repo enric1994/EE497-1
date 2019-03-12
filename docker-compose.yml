@@ -10,9 +10,4 @@ services:
       - 80:80
     volumes:
       - ./src:/usr/share/nginx/html:ro
-
-      #Open project:
-      #http://localhost/main.html
-
-      #Open custom script:
-      #http://localhost/main.html?filename=Project/MatrixTransform.js
+      - ./conf.d:/etc/nginx/conf.d
