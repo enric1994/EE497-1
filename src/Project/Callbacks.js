@@ -27,7 +27,6 @@ ClickCallback.prototype = {
 
 
 // Light Callback
-// var lastLight = createAmbientLight(0,0,0);
 var LightCallback = function() {};
 LightCallback.prototype = {
     update: function(node) {
@@ -76,26 +75,12 @@ LightCallback.prototype = {
 var SunCallback = function() {};
 SunCallback.prototype = {
     update: function(node,nodeVisitor) {
-        // lastLight = createDirectionalLight(45*Math.sin(currentTime), 45*Math.sin(currentTime), 45*Math.cos(currentTime), 1,1,1)
         var currentTime = nodeVisitor.getFrameStamp().getSimulationTime();
 
         var matrix = node.getMatrix();
         osg.Matrix.makeTranslate(45*Math.sin(currentTime/4), 45*Math.sin(currentTime/2), 45*Math.cos(currentTime/4), matrix);
         
-            // if (currentTime%2 < 0.02){
-            //     console.log('light updated')
-            //     dlight = createDirectionalLight(45*Math.sin(currentTime), 45*Math.sin(currentTime), 45*Math.cos(currentTime), 1,1,1)
-                
-            //     node.removeChild(lastLight);
-            //     node.addChild(dlight);
-            //     lastLight = dlight;
-            // }
-            
-
-            
-            // console.log('light updated!')
-        
-    }
+}
 };
 
 // Moon callback

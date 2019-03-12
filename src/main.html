@@ -86,6 +86,21 @@ function init() {
 
     sun.create();
 
+    // Create moving directional Light
+    var lightNumber = getNextLightNumber();
+     var directionalLight = new osg.Light(lightNumber);
+    
+        directionalLight.setPosition([0,0,0,1]);
+    
+        directionalLight.setDiffuse([0.8,0.8,0.8,1]);
+        directionalLight.setSpecular([0.8, 0.8, 0.8, 1.0]);
+        directionalLight.setAmbient([0, 0.0, 0.0, 1.0]);
+    
+        var lightSource = new osg.LightSource();
+        lightSource.setLight(directionalLight);
+
+        sunTranslation.addChild(lightSource);
+
          //Create Moon
         var moonTranslation = new osg.MatrixTransform();
     globalTranslation.addChild(moonTranslation);
